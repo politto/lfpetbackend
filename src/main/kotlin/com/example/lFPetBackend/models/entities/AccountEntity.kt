@@ -13,12 +13,11 @@ data class AccountEntity (
     @Column(name = "accountName", nullable = false, unique = true)
     var accountName: String,
 
-    @Column(name = "password", nullable = false)
-    var password: String,
+    @Column(name = "SessionToken", nullable = false)
+    var sessionToken: String,
 
-    @OneToOne(cascade = [CascadeType.ALL], optional = false)
-    @JoinColumn(name = "email")
-    var email: SubscribedEmail,
+    @Column(name = "email", nullable = false)
+    var email: String,
 
     @Column(name = "phoneNumber", nullable = false)
     var phoneNumber: String?,
@@ -26,8 +25,8 @@ data class AccountEntity (
     @Column(name = "isDeleted", nullable = false)
     var isDeleted: Boolean,
 
-    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var pets: List<PetOwnershipEntity>?,
+//    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    var pets: List<PetOwnershipEntity>?,
 
     @OneToMany(mappedBy = "account")
     var posts: List<PostEntity>?

@@ -26,11 +26,11 @@ data class PetInfoEntity (
     var birthDate : Date? = null,
 
     // Either F, M or U
-    @Column(name = "Gender")
+    @Column(name = "gender")
     var gender : String? = null,
 
     @Column(name = "isAdopted")
-    var isAdopted: String? = null,
+    var isAdopted: Boolean = false,
 
     @Column(name = "detail")
     var detail: String? = null,
@@ -45,14 +45,17 @@ data class PetInfoEntity (
     @Column(name = "isLost")
     var isLost: Boolean? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "pet", fetch = FetchType.LAZY)
-    var ownerHistList: List<PetOwnershipEntity>? = null,
-
     @Column(name = "isDeceased")
-    var isDeceased: Boolean? = null,
+    var isDeceased: Boolean? = false,
 
     @Column(name = "lastPicLink")
-    var lastPicLink: String? = null
+    var lastPicLink: String? = null,
+
+    @Column(name = "isDeleted")
+    var isDeleted: Boolean = false,
+
+    @ManyToMany(mappedBy = "petParticipated", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var postParticipation: List<PostEntity> = listOf()
 
 
 

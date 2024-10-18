@@ -1,9 +1,13 @@
 package com.example.lFPetBackend.service
 
 import com.example.lFPetBackend.models.entities.AccountEntity
+import com.example.lFPetBackend.models.entities.PetInfoEntity
+import com.example.lFPetBackend.models.entities.PetOwnershipEntity
 import com.example.lFPetBackend.repository.AccountRepository
+import com.example.lFPetBackend.repository.PetOwnershipRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class AccountService {
@@ -11,28 +15,38 @@ class AccountService {
     @Autowired
     lateinit var accountRepository: AccountRepository
 
-    fun getAllAccounts() = accountRepository.findAll()
+    @Autowired
+    lateinit var petOwnerShipRepository: PetOwnershipRepository
 
-    fun getAccountById(id: Long) = accountRepository.findById(id)
+    fun getAllAccounts(): List<AccountEntity> = accountRepository.findAll()
 
-    fun createAccount(account: AccountEntity): Map<String, String> {
+    fun getAllPresentOwnedPet(accId: Long): List<PetOwnershipEntity> = petOwnerShipRepository.findAllPetsByAccountId(accId)
+
+    fun getAccountById(id: Long): Optional<AccountEntity> = accountRepository.findById(id)
+
+    fun createAccount(account: AccountEntity): AccountEntity? {
         val existAccount = getAccountByAccountName(account.accountName)
         if (existAccount != null) {
-            return mapOf("msg" to "error")
+            return null
         }
-        accountRepository.save(account)
-        return mapOf("msg" to "success")
+        return accountRepository.save(account)
+
     }
 
     fun updateAccount(account: AccountEntity) = accountRepository.save(account)
 
-    fun logicalDeleteById(id: Long): Map<String, String> {
-        if (accountRepository.findById(id).isEmpty) return mapOf("msg" to "error")
+    fun logicalDeleteById(id: Long): Boolean {
+        if (accountRepository.findById(id).isEmpty) return false;
         val res: Int = accountRepository.setIsDeleted(true, id);
-        return if (res >= 0) mapOf("msg" to "success") else mapOf("msg" to "error")
+        return res >= 0
     }
 
     fun getAccountByAccountName(accName: String) = accountRepository.findByAccName(accName)
+
+    fun setSessionToken(sessionToken: String, accId: Long): Boolean {
+        val res: Int = accountRepository.setSessionToken(sessionToken, accId)
+        return res >= 0
+    };
 
 
 }
