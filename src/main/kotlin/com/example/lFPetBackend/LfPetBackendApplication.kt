@@ -8,4 +8,6 @@ class LfPetBackendApplication
 
 fun main(args: Array<String>) {
 	runApplication<LfPetBackendApplication>(*args)
+
+	//8riew bootrun only
 }

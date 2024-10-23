@@ -1,5 +1,6 @@
 package com.example.lFPetBackend.models.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -13,21 +14,22 @@ data class AccountEntity (
     @Column(name = "accountName", nullable = false, unique = true)
     var accountName: String,
 
-    @Column(name = "SessionToken", nullable = false)
+    @Column(name = "SessionToken")
     var sessionToken: String,
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     var email: String,
 
-    @Column(name = "phoneNumber", nullable = false)
-    var phoneNumber: String?,
+    @Column(name = "phoneNumber")
+    var phoneNumber: String,
 
-    @Column(name = "isDeleted", nullable = false)
+    @Column(name = "isDeleted")
     var isDeleted: Boolean,
 
 //    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
 //    var pets: List<PetOwnershipEntity>?,
 
+    @JsonIgnore
     @OneToMany(mappedBy = "account")
     var posts: List<PostEntity>?
 

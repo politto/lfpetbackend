@@ -1,5 +1,6 @@
 package com.example.lFPetBackend.models.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.*
 import java.util.logging.Level.ALL
@@ -55,6 +56,7 @@ data class PetInfoEntity (
     var isDeleted: Boolean = false,
 
     @ManyToMany(mappedBy = "petParticipated", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @JsonIgnore
     var postParticipation: List<PostEntity> = listOf()
 
 

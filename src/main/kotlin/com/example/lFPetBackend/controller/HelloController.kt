@@ -1,12 +1,17 @@
-package com.example.lFPetBackend.controller
+package com.example.LFPetBackend.controller
 
+import com.example.lFPetBackend.models.*
 import com.example.lFPetBackend.models.dto.FindPetAlikeDTO
+import com.example.lFPetBackend.models.dto.PostDTO
+import com.example.lFPetBackend.models.dto.PostWithContactDto
+import com.example.lFPetBackend.models.dto.PostWithPetsDto
 import com.example.lFPetBackend.models.entities.AccountEntity
 import com.example.lFPetBackend.models.entities.PetInfoEntity
 import com.example.lFPetBackend.models.entities.PetOwnershipEntity
 import com.example.lFPetBackend.models.entities.PostEntity
 import com.example.lFPetBackend.service.*
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -82,13 +87,57 @@ class HelloController
     //--- Post ----
 
     @PostMapping("/createPost")
-    fun createPost(@RequestBody postEntity: PostEntity):ResponseEntity<PostEntity>{
+    fun createPost(@RequestBody postDTO: PostDTO):ResponseEntity<PostEntity>{
+        val foundAccount = accountService.getAccountById(postDTO.accountId!!)
+        if (foundAccount.isEmpty){
+            return ResponseEntity.status(400).body(null)
+        }
+
+
+
+        //convert postDTO to postEntity
+        val postEntity = PostEntity(
+            postTitle = postDTO.postTitle,
+            postContent = postDTO.postContent,
+            postDate = Date(),
+            postType = postDTO.postType,
+            postImageLink = postDTO.postImageLink,
+            postStatus = postDTO.postStatus,
+            isDeleted = postDTO.isDeleted,
+            account = foundAccount.get(),
+            petParticipated = postDTO.petParticipated
+        )
         return ResponseEntity.ok(postService.createPost(postEntity))
     }
 
+    @PostMapping
+    fun addPostWithPets(@RequestBody postWithPetsDto: PostWithPetsDto): ResponseEntity<PostEntity> {
+        val savedPost = postService.savePostWithPets(postWithPetsDto)
+        return ResponseEntity(savedPost, HttpStatus.CREATED)
+    }
+
+//    @GetMapping("/getTwentyPosts")
+//    fun get20Posts(@RequestParam index: Int):ResponseEntity<List<PostEntity>>{
+//        return ResponseEntity.ok(postService.getSomePosts(index))
+//    }
+
     @GetMapping("/getTwentyPosts")
-    fun get20Posts(@RequestParam index: Int):ResponseEntity<List<PostEntity>>{
-        return ResponseEntity.ok(postService.getSomePosts(index))
+    fun get20Posts(@RequestParam index: Int):ResponseEntity<List<PostWithContactDto>>{
+        //return List of postEntity and contact, email from accountEntity by accountId
+        var ret: List<PostWithContactDto>  = mutableListOf();
+        val posts20: List<PostEntity> = postService.getSomePosts(index)
+        for (post in posts20){
+            val account = post.account
+            if (account != null){
+                val postWithContact = PostWithContactDto(post, account.email, account.phoneNumber)
+                ret += postWithContact
+            }
+            else {
+                val postWithContact = PostWithContactDto(post)
+                ret += postWithContact
+            }
+        }
+        return ResponseEntity.ok(ret)
     }
 
     @GetMapping("/getPostsById")

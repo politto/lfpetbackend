@@ -26,24 +26,24 @@ class ImageUploaderToCloud {
 
     fun uploadImageToCloud(image: MultipartFile, displayName: String): String {
 
-        return "http://res.cloudinary.com/dvo4douge/image/upload/v1729247511/temp3923454342989111200appeal_to_emotion2.jpg"
-//        val cloudinary = Cloudinary(cloudinaryUrl)
-//
-//        // Convert MultipartFile to File
-//        val tempFile = File.createTempFile("temp", image.originalFilename)
-//        FileOutputStream(tempFile).use { fos ->
-//            fos.write(image.bytes)
-//        }
-//
-//
-//        // Upload the image
-//        val params1 = ObjectUtils.asMap(
-//            "use_filename", true,
-//            "unique_filename", false,
-//            "overwrite", true
-//        )
-//        val uploadResult = cloudinary.uploader().upload(tempFile, params1)
-//        return uploadResult["url"].toString()
+//        return "https://res.cloudinary.com/dvo4douge/image/upload/v1726739552/samples/animals/cat.jpg"
+        val cloudinary = Cloudinary(cloudinaryUrl)
+
+        // Convert MultipartFile to File
+        val tempFile = File.createTempFile("temp", image.originalFilename)
+        FileOutputStream(tempFile).use { fos ->
+            fos.write(image.bytes)
+        }
+
+
+        // Upload the image
+        val params1 = ObjectUtils.asMap(
+            "use_filename", true,
+            "unique_filename", false,
+            "overwrite", true
+        )
+        val uploadResult = cloudinary.uploader().upload(tempFile, params1)
+        return uploadResult["url"].toString()
 
     }
 
