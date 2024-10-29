@@ -124,20 +124,21 @@ class HelloController
     @GetMapping("/getTwentyPosts")
     fun get20Posts(@RequestParam index: Int):ResponseEntity<List<PostWithContactDto>>{
         //return List of postEntity and contact, email from accountEntity by accountId
-        var ret: List<PostWithContactDto>  = mutableListOf();
-        val posts20: List<PostEntity> = postService.getSomePosts(index)
-        for (post in posts20){
-            val account = post.account
-            if (account != null){
-                val postWithContact = PostWithContactDto(post, account.email, account.phoneNumber)
-                ret += postWithContact
-            }
-            else {
-                val postWithContact = PostWithContactDto(post)
-                ret += postWithContact
-            }
-        }
-        return ResponseEntity.ok(ret)
+//        var ret: List<PostWithContactDto>  = mutableListOf();
+//        val posts20: List<PostEntity> = postService.getSomePosts(index)
+//        for (post in posts20){
+//            val account = post.account
+//            if (account != null){
+//                val postWithContact = PostWithContactDto(post, account.email, account.phoneNumber)
+//                ret += postWithContact
+//            }
+//            else {
+//                val postWithContact = PostWithContactDto(post)
+//                ret += postWithContact
+//            }
+//        }
+//        return ResponseEntity.ok(ret)
+
     }
 
     @GetMapping("/getPostsById")

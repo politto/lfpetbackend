@@ -1,5 +1,6 @@
 package com.example.lFPetBackend.service
 
+import com.example.LFPetBackend.service.PetInPostService
 import com.example.lFPetBackend.models.dto.PostWithPetsDto
 import com.example.lFPetBackend.models.entities.PetInfoEntity
 import com.example.lFPetBackend.models.entities.PostEntity
@@ -15,9 +16,18 @@ class PostService {
     @Autowired
     lateinit var postRepository: PostRepository
 
+    @Autowired
+    lateinit var petInfoService: PetInfoService
+
+    @Autowired
+    lateinit var petOwnershipService: PetOwnershipService
+
+    @Autowired
+    lateinit var petInPostService: PetInPostService
+
     fun getAllPosts(): List<PostEntity> = postRepository.findAll()
 
-    fun getSomePosts(startPostIndex: Int): List<PostEntity> = postRepository.getSomePosts(startPostIndex)
+    fun getSomePosts(startPostIndex: Int): List<PostEntity> = petInPostService.getPostsWithPets(startPostIndex, 20)
 
     fun getPostById(id: Long): PostEntity = postRepository.findById(id).get()
 
@@ -51,9 +61,12 @@ class PostService {
             postType = postWithPetsDto.postType,
             postImageLink = postWithPetsDto.postImageLink,
             postStatus = postWithPetsDto.postStatus,
-            isDeleted = postWithPetsDto.isDeleted,
-            petParticipated = pets
+            isDeleted = postWithPetsDto.isDeleted
         )
+
+        for (pet in pets) {
+            post.petParticipated.add(pet)
+        }
 
         return postRepository.save(post)
     }

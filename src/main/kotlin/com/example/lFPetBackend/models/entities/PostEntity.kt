@@ -40,13 +40,14 @@ data class PostEntity (
     @Column(name = "isDeleted")
     var isDeleted: Boolean = false,
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-        name = "petParticipationInPosts",
-        joinColumns = [JoinColumn(name = "postId")],
-        inverseJoinColumns = [JoinColumn(name = "petId")]
-    )
-    var petParticipated: List<PetInfoEntity> = listOf()
+    // change to JDBC
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(
+//        name = "petParticipationInPosts",
+//        joinColumns = [JoinColumn(name = "postId")],
+//        inverseJoinColumns = [JoinColumn(name = "petId")]
+//    )
+//    var petParticipated: List<PetInfoEntity> = listOf()
 
 
 )

@@ -55,9 +55,10 @@ data class PetInfoEntity (
     @Column(name = "isDeleted")
     var isDeleted: Boolean = false,
 
-    @ManyToMany(mappedBy = "petParticipated", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JsonIgnore
-    var postParticipation: List<PostEntity> = listOf()
+    //Change to manual JDBC
+//    @ManyToMany(mappedBy = "petParticipated", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    var postParticipation: List<PostEntity> = listOf()
 
 
 

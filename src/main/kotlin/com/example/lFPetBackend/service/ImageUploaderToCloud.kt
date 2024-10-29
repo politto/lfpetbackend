@@ -26,7 +26,8 @@ class ImageUploaderToCloud {
 
     fun uploadImageToCloud(image: MultipartFile, displayName: String): String {
 
-//        return "https://res.cloudinary.com/dvo4douge/image/upload/v1726739552/samples/animals/cat.jpg"
+        val noCLD = true;
+        if (noCLD) return "https://res.cloudinary.com/dvo4douge/image/upload/v1726739552/samples/animals/cat.jpg"
         val cloudinary = Cloudinary(cloudinaryUrl)
 
         // Convert MultipartFile to File
