@@ -3,11 +3,13 @@ package com.example.lFPetBackend.service
 import com.example.lFPetBackend.models.dto.FindPetAlikeDTO
 import com.example.lFPetBackend.models.entities.PetInfoEntity
 import com.example.lFPetBackend.repository.PetInfoRepository
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class PetInfoService {
 
+    @Autowired
     lateinit var petInfoRepository: PetInfoRepository
 
     fun getAllPets(): List<PetInfoEntity> = petInfoRepository.findAll()

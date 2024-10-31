@@ -4,7 +4,7 @@ import com.example.lFPetBackend.models.entities.PostEntity
 
 data class PostWithContactDto (
     //all properties from postEntity
-    val postData: PostDTO,
+    val postData: PostWithPetsDto,
     val email: String = "",
     val phoneNumber: String = ""
     )

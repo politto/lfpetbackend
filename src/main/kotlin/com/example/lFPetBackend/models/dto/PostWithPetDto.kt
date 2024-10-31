@@ -4,6 +4,7 @@ import com.example.lFPetBackend.models.entities.PetInfoEntity
 import java.util.*
 
 data class PostWithPetsDto(
+    val postId: Long,
     val postTitle: String,
     val postContent: String,
     val postDate: Date,
@@ -11,6 +12,7 @@ data class PostWithPetsDto(
     val postImageLink: String,
     val postStatus: String,
     val isDeleted: Boolean,
+    val accountId: Long,
     val pets: List<PetInfoEntity>
 )
 

@@ -50,6 +50,9 @@ class ImageUploaderToCloud {
 
     //delete uploaded image
     fun deleteImageFromCloud(imageUrl: String) {
+        val noCLD = true;
+        if (noCLD) return
+
         val cloudinary = Cloudinary(cloudinaryUrl)
         val publicId = imageUrl.substringAfterLast("/").substringBeforeLast(".")
         cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap())

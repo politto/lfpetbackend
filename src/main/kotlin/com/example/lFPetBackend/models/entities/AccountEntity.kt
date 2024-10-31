@@ -28,9 +28,9 @@ data class AccountEntity (
 
 //    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
 //    var pets: List<PetOwnershipEntity>?,
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "account")
-    var posts: List<PostEntity>?
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "account")
+//    var posts: List<PostEntity>?
 
 )

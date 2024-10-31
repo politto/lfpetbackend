@@ -33,6 +33,13 @@ class PetOwnershipService {
         return petOwnershipEntity
     }
 
+    //delete
+    fun deletePetOwnership(accountId: Long, petId: Long) {
+        val petOwnershipCompoId = PetOwnershipCompoId(accountId = accountId, petId = petId)
+        petOwnerShipRepository.deleteById(petOwnershipCompoId)
+    }
+
+
 
 
     // implement some function support home migration (future work)

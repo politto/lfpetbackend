@@ -20,9 +20,9 @@ data class PostEntity (
     @Column(name = "postDate")
     var postDate: Date? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accountId")
-    var account: AccountEntity? = null,
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "accountId")
+    var accountId: Long? = null,
 
     //Either lost or found
     @Column(name = "postType")
