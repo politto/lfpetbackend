@@ -35,6 +35,10 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	implementation("org.postgresql:postgresql:42.7.4")
+
+	implementation("com.cloudinary:cloudinary-http5:2.0.0")
+	implementation("com.cloudinary:cloudinary-taglib:2.0.0")
+	implementation("io.github.cdimascio:dotenv-java:2.2.4")
 }
 
 kotlin {

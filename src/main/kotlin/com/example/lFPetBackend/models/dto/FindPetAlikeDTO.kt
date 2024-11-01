@@ -4,7 +4,7 @@ data class FindPetAlikeDTO (
     var petName: String,
     var petType: String,
     var gender: String,
-    var color: String,
+    var breed: String,
     var isAdopted: Boolean,
     var lastLat: Float,
     var lastLng: Float,

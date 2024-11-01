@@ -1,5 +1,6 @@
 package com.example.lFPetBackend.models.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -13,23 +14,29 @@ data class AccountEntity (
     @Column(name = "accountName", nullable = false, unique = true)
     var accountName: String,
 
-    @Column(name = "password", nullable = false)
-    var password: String,
+    @Column(name = "SessionToken")
+    var sessionToken: String,
 
-    @OneToOne(cascade = [CascadeType.ALL], optional = false)
-    @JoinColumn(name = "email")
-    var email: SubscribedEmail,
+    @Column(name = "email")
+    var email: String,
 
-    @Column(name = "phoneNumber", nullable = false)
-    var phoneNumber: String?,
+    @Column(name = "phoneNumber")
+    var phoneNumber: String,
 
-    @Column(name = "isDeleted", nullable = false)
+    @Column(name = "isDeleted")
     var isDeleted: Boolean,
 
-    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var pets: List<PetOwnershipEntity>?,
+    @Column(name = "baseLat")
+    var baseLat: Long?,
 
-    @OneToMany(mappedBy = "account")
-    var posts: List<PostEntity>?
+    @Column(name = "baseLng")
+    var baseLng: Long?,
+
+//    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    var pets: List<PetOwnershipEntity>?,
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "account")
+//    var posts: List<PostEntity>?
 
 )

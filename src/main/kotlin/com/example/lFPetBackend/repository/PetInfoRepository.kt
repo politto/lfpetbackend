@@ -18,15 +18,23 @@ interface PetInfoRepository : JpaRepository<PetInfoEntity, Long> {
 
 
     @Query("from PetInfoEntity p " +
-            "where p.petName like %:findPetAlikeDto.petName% " +
-            "and p.petType like %:findPetAlikeDto.petType% " +
-            "and p.gender = :findPetAlikeDto.gender " +
-            "and p.color like %:findPetAlikeDto.color% " +
-            "and p.isAdopted = :findPetAlikeDto.isAdopted " +
-            "and p.isLost = :findPetAlikeDto.isLost " +
-            "and (p.lastLat < 0.05 * :findPetAlikeDto.numOfLostDays or p.lastLat > 0.05 * :findPetAlikeDto.numOfLostDays) and (p.lastLng < 0.05 * cos(:findPetAlikeDto.lastLat) * :findPetAlikeDto.numOfLostDays or p.lastLng > 0.05 * :findPetAlikeDto.numOfLostDays)")
-    //                 Distance(km)=1.85×cos(latitude degrees)
+            "where p.petName like %:#{#findPetAlikeDto.petName}% " +
+            "and p.petType like %:#{#findPetAlikeDto.petType}% " +
+            "and p.gender = :#{#findPetAlikeDto.gender} " +
+            "and p.breed like %:#{#findPetAlikeDto.breed}% " +
+            "and p.isAdopted = :#{#findPetAlikeDto.isAdopted} " +
+            "and p.isLost = :#{#findPetAlikeDto.isLost} " +
+            "and (p.lastLat < 0.05 * :#{#findPetAlikeDto.numOfLostDays} " +
+            "or p.lastLat > 0.05 * :#{#findPetAlikeDto.numOfLostDays}) " +
+            "and (p.lastLng < 0.05 * :#{#findPetAlikeDto.numOfLostDays} " +
+            "or p.lastLng > 0.05 * :#{#findPetAlikeDto.numOfLostDays})")
     fun findPetsThatAlike(@Param("findPetAlikeDto") findPetAlikeDto: FindPetAlikeDTO): List<PetInfoEntity>
+//                 Distance(km)=1.85×cos(latitude degrees)
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query("update PetInfoEntity p set p.isDeleted = not p.isDeleted where p.petId = :id")
+    fun setIsDeleted(@Param("id") id: Long): Int
 
 
 

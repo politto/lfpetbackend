@@ -38,3 +38,12 @@ out/
 
 ### Kotlin ###
 .kotlin
+
+
+<<<<<<< HEAD
+!**/src/main/resources/application.properties
+=======
+#not include application.properties
+!**/src/main/resources/application.properties
+
+>>>>>>> 3675380 (backend usable)
