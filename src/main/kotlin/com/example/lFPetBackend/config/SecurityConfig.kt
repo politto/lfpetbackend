@@ -14,9 +14,16 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .csrf { it.disable() }
+//            .csrf { it.disable() }
+//            .authorizeHttpRequests { auth ->
+//                auth.anyRequest().permitAll()
+//            }
+            .csrf { it.enable() }
             .authorizeHttpRequests { auth ->
-                auth.anyRequest().permitAll()
+                auth
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .antMatchers("/user/**").hasRole("USER")
+                    .anyRequest().authenticated()
             }
         return http.build()
     }
