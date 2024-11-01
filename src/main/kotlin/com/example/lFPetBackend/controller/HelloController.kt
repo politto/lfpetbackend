@@ -240,7 +240,7 @@ class HelloController
     }
 
     //delete
-    @PostMapping("/deleteImg")
+    @DeleteMapping("/deleteImg")
     fun deleteImg(@RequestParam imgName: String):ResponseEntity<Boolean>{
         ResponseEntity.ok(imageUploaderToCloud.deleteImageFromCloud(imgName))
         return ResponseEntity.ok(true)

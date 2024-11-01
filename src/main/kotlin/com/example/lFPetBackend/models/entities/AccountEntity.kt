@@ -26,6 +26,12 @@ data class AccountEntity (
     @Column(name = "isDeleted")
     var isDeleted: Boolean,
 
+    @Column(name = "baseLat")
+    var baseLat: Long?,
+
+    @Column(name = "baseLng")
+    var baseLng: Long?,
+
 //    @OneToMany(mappedBy = "account", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
 //    var pets: List<PetOwnershipEntity>?,
 //

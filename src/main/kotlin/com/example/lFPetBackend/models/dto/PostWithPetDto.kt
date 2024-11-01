@@ -13,7 +13,7 @@ data class PostWithPetsDto(
     val postStatus: String,
     val isDeleted: Boolean,
     val accountId: Long,
-    val pets: List<PetInfoEntity>
+    var pets: List<PetInfoEntity>
 )
 
 data class PetDto(

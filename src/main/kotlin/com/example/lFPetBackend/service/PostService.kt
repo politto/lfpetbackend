@@ -76,8 +76,26 @@ class PostService {
             isDeleted = postWithPetsDto.isDeleted
         )
 
+        val createdPost: PostEntity = postRepository.save(post)
+
+        var iterateIdx:Int = 0;
         for (pet in pets) {
             petInfoService.createPetInfo(pet)
+            if (pet.petId == null) continue
+            println("gonna create pet in post")
+            println(petInPostService.createPetInPost(pet.petId!!, post.postId!!))
+
+
+            // if something wrong with PetInPost creation
+            if (petInPostService.getPostIdsByPetId(pet.petId!!).isEmpty()){
+                postRepository.deleteById(createdPost.postId!!)
+                //delete iterated pets from pets variable from db
+                if (iterateIdx in pets.indices) {
+                    petInfoService.deletePetInfo(pets[iterateIdx].petId!!)
+                }
+
+            }
+            iterateIdx++
         }
 
         //random prob 0.02
@@ -91,7 +109,7 @@ class PostService {
             }
         }
 
-        return postRepository.save(post)
+        return createdPost
     }
 
     fun updatePost(post: PostEntity): PostEntity = postRepository.save(post)

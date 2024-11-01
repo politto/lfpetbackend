@@ -26,7 +26,7 @@ class ImageUploaderToCloud {
 
     fun uploadImageToCloud(image: MultipartFile, displayName: String): String {
 
-        val noCLD = true;
+        val noCLD = false;
         if (noCLD) return "https://res.cloudinary.com/dvo4douge/image/upload/v1726739552/samples/animals/cat.jpg"
         val cloudinary = Cloudinary(cloudinaryUrl)
 
@@ -50,7 +50,7 @@ class ImageUploaderToCloud {
 
     //delete uploaded image
     fun deleteImageFromCloud(imageUrl: String) {
-        val noCLD = true;
+        val noCLD = false;
         if (noCLD) return
 
         val cloudinary = Cloudinary(cloudinaryUrl)
