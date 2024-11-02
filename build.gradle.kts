@@ -39,6 +39,13 @@ dependencies {
 	implementation("com.cloudinary:cloudinary-http5:2.0.0")
 	implementation("com.cloudinary:cloudinary-taglib:2.0.0")
 	implementation("io.github.cdimascio:dotenv-java:2.2.4")
+
+	//implement spring security
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.security:spring-security-web")
+	implementation("org.springframework.security:spring-security-config")
+	implementation("org.springframework.security:spring-security-core")
+
 }
 
 kotlin {
