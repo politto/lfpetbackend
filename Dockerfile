@@ -3,7 +3,7 @@ RUN apt-get update && apt-get install openjdk-21-jdk -y
 COPY . .
 RUN ./gradlew build
 
-FROM openjdk:21-jre-slim-buster
+FROM openjdk:21-jdk
 EXPOSE 8080
 COPY --from=build /build/libs/*.jar app.jar
 
