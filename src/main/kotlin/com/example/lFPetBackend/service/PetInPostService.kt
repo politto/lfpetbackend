@@ -1,4 +1,4 @@
-package com.example.LFPetBackend.service
+package com.example.lFPetBackend.service
 
 import com.example.lFPetBackend.models.dto.PostWithPetsDto
 import com.example.lFPetBackend.models.entities.PetInfoEntity
