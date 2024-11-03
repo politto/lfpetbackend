@@ -15,17 +15,17 @@ class SecurityConfig {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-//            .csrf { it.disable() }
-//            .authorizeHttpRequests { auth ->
-//                auth.anyRequest().permitAll()
-//            }
-            .csrf { it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) }
+            .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
-                auth
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/user/**").hasRole("USER")
-                    .anyRequest().authenticated()
+                auth.anyRequest().permitAll()
             }
+//            .csrf { it.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) }
+//            .authorizeHttpRequests { auth ->
+//                auth
+//                    .requestMatchers("/admin/**").hasRole("ADMIN")
+//                    .requestMatchers("/user/**").hasRole("USER")
+//                    .anyRequest().authenticated()
+//            }
         return http.build()
     }
 
